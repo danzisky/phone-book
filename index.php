@@ -8,6 +8,14 @@ if(isset($_SESSION['id'])) {
 
 } else {
     ?>
+    <h1>Login to your Account</h1>
+    <form action="account/login.php" method="POST">
+        <input name='username' type="text" placeholder="username" />
+        <input name='email' type="email" placeholder="email" />
+        <input name="submit" type="submit" value="SIGN IN TO ACCOUNT"/>
+    </form>
+    <br/>
+    <h1>Make New User</h1>
     <form action="account/signup.php" method="POST">
         <input name='username' type="text" placeholder="username" />
         <input name='email' type="email" placeholder="email" />
