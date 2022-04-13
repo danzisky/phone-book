@@ -7,10 +7,10 @@ function myAutoLoader($classname) {
 	$classname = strtolower($classname);
 	
 	if(strpos($url, 'includes') !==false) {
-		 $path = '../classes/';
+		 $path = '../../classes/';
 	}
 	else {
-		$path = 'classes/';
+		$path = '../classes/';
 	}
 	$extension = ".class.php";
 	require_once $path.$classname.$extension;
