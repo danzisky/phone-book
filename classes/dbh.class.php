@@ -1,10 +1,10 @@
 <?php
 
 class Dbh {
-	private $host = "localhost";
+	private $host = "127.0.0.1";
 	private $user = "root";
 	private $pwd = "";
-	private $dbName = "chopcut";
+	private $dbName = "phonebook";
 	
 	protected function connect() {
 		$dsn = 'mysql:host='.$this->host.';dbname='.$this->dbName; 
