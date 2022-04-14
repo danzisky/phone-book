@@ -37,7 +37,7 @@ if(isset($_SESSION['user_id'])) {
     echo '<a href="account.php"><button  class="w3-medium w3-button w3-gray w3-margin-top w3-margin-bottom">BACK TO PHONEBOOKS</button></a>';
     echo '<br>';
     
-    if($contact[0]['address2'] == 1 || $contact[0]['address2'] == "1") {
+    if($contact[0]['visible'] == 1 || $contact[0]['visible'] == "1") {
         echo '<div class="w3-medium w3-panel w3-center">This contact can be seen in public phonebook</div>';
     } else {
         echo '<div class="w3-medium w3-panel w3-center">This contact is hidded from others in phonebook</div>';

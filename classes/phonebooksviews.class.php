@@ -10,6 +10,10 @@ class PhonebooksViews extends Phonebooks {
 		$results = $this->getPhonebookName($name, $user_id);
 	return $results;
 	}
+	public function ifPublic($phonebook_id) {
+		$results = $this->isPublic($phonebook_id);
+	return $results;
+	}
 	public function showPhonebook($phonebook_id, $user_id) {
 		$results = $this->getPhonebook($phonebook_id, $user_id);
 	return $results; 

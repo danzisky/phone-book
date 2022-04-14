@@ -13,7 +13,7 @@ if(isset($_POST['submit']) && isset($_SESSION['user_id'])) {
     $description = htmlspecialchars($_POST['description']);
     $user_id = htmlspecialchars(strtolower($_POST['user_id']));
 
-    if (empty($name) || empty($user_id)) {
+    if(empty($name) || empty($user_id)) {
         $response->sendHeader('../account.php', 'error', 'please fill in the phonebook name');        
     } elseif (!preg_match("/^[a-z A-Z 0-9]*$/", $name)) {
         $response->sendHeader('../account.php', 'error', 'please check for invalid characters in the name field'); 

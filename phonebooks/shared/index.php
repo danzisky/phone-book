@@ -16,13 +16,36 @@ if(isset($_REQUEST['phonebook_id'])) {
     }
     //include 'includes/autoloader.inc.php';
     include '../../classes/dbh.class.php';
+    include '../../classes/phonebooks.class.php';
+    include '../../classes/phonebooksviews.class.php';
     include '../../classes/sharedcontacts.class.php';
     include '../../classes/sharedcontactsviews.class.php';
     
+
+    $phonebook = new PhonebooksViews();
+
+    $ifVisible = $phonebook->ifPublic($phonebook_id);
+
+    if(empty($ifVisible) || is_null($ifVisible)) {
+        echo 'unknown error occurred, phonebook was not found'.$phonebook_id;
+        exit();
+    }
+
+    if($ifVisible[0]['public'] == "1" || $ifVisible[0]['public'] == 1) {
+        $visible = true;
+    } else {
+        $visible = false;
+    }
+
+    if($visible == false) {
+       echo 'Sorry the Phonebook is Private';
+       exit();
+    }
+
     $checkContacks = new SharedContactsViews();
     $contacts = $checkContacks->showContactsPhonebook($phonebook_id);
 
-    echo '<div class="w3-xxlarge w3-panel">Shared Contacts</div>';
+    echo '<div class="w3-xxlarge w3-panel">Shared Contacts in '.$ifVisible[0]['phonebook_name'].'</div>';
 
     if(empty($contacts) || is_null($contacts)) {
         echo '<div class="w3-medium w3-panel w3-center">No contacts in this Phonebook Yet</div>';

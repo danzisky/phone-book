@@ -26,6 +26,13 @@ class Phonebooks extends Dbh {
 		return $results;	
 	}
 	
+	protected function isPublic($phonebook_id) {
+		$sql = "SELECT * FROM phonebooks WHERE id = ?";
+		$stmt = $this->connect()->prepare($sql);
+		$stmt->execute([$phonebook_id]);
+		$results = $stmt->fetchAll();
+		return $results;
+	}
 	protected function setPhonebook($name, $user_id, $description) {
 		$sql = "INSERT INTO phonebooks(phonebook_name, user_id, phonebook_description) VALUES(?, ?, ?)";
 		$stmt = $this->connect()->prepare($sql);
