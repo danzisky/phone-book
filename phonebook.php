@@ -12,7 +12,7 @@ if(isset($_SESSION['user_id'])) {
     if(isset($_REQUEST['phonebook_id'])) {
         $_SESSION['phonebook_id'] = $_REQUEST['phonebook_id'];
         $phonebook_id = $_REQUEST['phonebook_id'];
-    } elseif(isset($_SESSION['phonebook_id']) && isset($_REQUEST['phonebook_id'])) {
+    } elseif(isset($_SESSION['phonebook_id']) && !isset($_REQUEST['phonebook_id'])) {
         $phonebook_id = $_SESSION['phonebook_id'];
     } else {
         $response->sendHeader('account.php', 'error', 'please select a phonebook');
@@ -25,8 +25,18 @@ if(isset($_SESSION['user_id'])) {
     $checkContacks = new ContactsViews();
     $contacts = $checkContacks->showContactsPhonebook($user_id, $phonebook_id);
 
-    echo '<div class="w3-xxlarge w3-panel">Added Contacts</div>';
+    include 'classes/phonebooks.class.php';
+    include 'classes/phonebooksviews.class.php';
+    
+    $checkPhonebooks = new PhonebooksViews();
+    $phonebook = $checkPhonebooks->showPhonebook($phonebook_id, $user_id);
 
+    echo '<div class="w3-xxlarge w3-panel">Logged in as '.$_SESSION['first_name'].'</div>';
+    echo '<div class="w3-xxlarge w3-panel">'.$phonebook[0]['phonebook_name'].': Added Contacts</div>';
+
+    echo '<a href="account.php"><button  class="w3-medium w3-button w3-gray w3-margin-top w3-margin-bottom">BACK TO PHONEBOOKS</button></a>';
+    echo '<br>';
+    
     if(empty($contacts) || is_null($contacts)) {
         echo '<div class="w3-medium w3-panel w3-center">No contacts added yet</div>';
     }
@@ -42,21 +52,21 @@ if(isset($_SESSION['user_id'])) {
             <input name='user_id' hidden type="hidden" value="<?php echo $_SESSION['user_id'] ?>" />
         </form>
         <div>
-            <form action="contact/edit_contact.php" method="POST" class="w3-form"/>
-                <button value="<?php echo $contact_id['id']; ?> " class="w3-button w3-grey w3-left-align">EDIT</button>
-                <input name='phonebook_id' hidden type="hidden" value="<?php echo $contact_id['id']; ?>" />
+            <form action="edit_contact.php" method="POST" class="w3-form"/>
+                <button value="<?php echo $contact['id']; ?> " class="w3-button w3-grey w3-left-align">EDIT</button>
+                <input name='contact_id' hidden type="hidden" value="<?php echo $contact['id']; ?>" />
                 <input name='user_id' hidden type="hidden" value="<?php echo $_SESSION['user_id']; ?>" />
             </form>
             <form action="contact/hide_contact.php" method="POST" class="w3-form"/>
-                <button value="<?php echo $contact_id['id']; ?> " class="w3-button w3-green w3-left-align">HIDE</button>
-                <input name='phonebook_id' hidden type="hidden" value="<?php echo $contact_id['id']; ?>" />
+                <button value="<?php echo $contact['id']; ?> " class="w3-button w3-green w3-left-align">HIDE</button>
+                <input name='phonebook_id' hidden type="hidden" value="<?php echo $contact['id']; ?>" />
                 <input name='user_id' hidden type="hidden" value="<?php echo $_SESSION['user_id']; ?>" />
             </form>
             <form action="contact/delete_contact.php" method="POST" class="w3-form"/>
-                <button value="<?php echo $contact_id['id']; ?> " class="w3-button w3-red w3-left-align">
+                <button name="delete" type="submit" value="<?php echo $contact['id']; ?>" class="w3-button w3-red w3-left-align">
                     DELETE
                 </button>
-                <input name='contact_id' hidden type="hidden" value="<?php echo $contact_id['id']; ?>" />
+                <input name='contact_id' hidden type="hidden" value="<?php echo $contact['id']; ?>" />
                 <input name='user_id' hidden type="hidden" value="<?php echo $_SESSION['user_id']; ?>" />
             </form>
         </div>

@@ -16,6 +16,7 @@ if(isset($_SESSION['user_id'])) {
     $checkPhonebooks = new PhonebooksViews();
     $phonebooks = $checkPhonebooks->showPhonebooks($user_id);
 
+    echo '<div class="w3-xxlarge w3-panel">Welcome '.$_SESSION['first_name'].'</div>';
     echo '<div class="w3-xxlarge w3-panel">Created Phonebooks</div>';
 
     if(empty($phonebooks) || is_null($phonebooks)) {
@@ -33,18 +34,18 @@ if(isset($_SESSION['user_id'])) {
             <input name='user_id' hidden type="hidden" value="<?php echo $_SESSION['user_id']; ?>" />
         </form>
         <div>
-            <form action="phonebook/edit_phonebook.php" method="POST" class="w3-form"/>
-                <button value="<?php echo $phonebook['id']; ?> " class="w3-button w3-grey w3-left-align">EDIT</button>
+            <form action="edit_phonebook.php" method="POST" class="w3-form"/>
+                <button name="submit" type="submit" value="<?php echo $phonebook['id']; ?> " class="w3-button w3-grey w3-left-align">EDIT</button>
                 <input name='phonebook_id' hidden type="hidden" value="<?php echo $phonebook['id']; ?>" />
                 <input name='user_id' hidden type="hidden" value="<?php echo $_SESSION['user_id']; ?>" />
             </form>
-            <form action="phonebook/share_phonebook.php" method="POST" class="w3-form"/>
+            <form action="phonebooks/share_phonebook.php" method="POST" class="w3-form"/>
                 <button value="<?php echo $phonebook['id']; ?> " class="w3-button w3-green w3-left-align">SHARE</button>
                 <input name='phonebook_id' hidden type="hidden" value="<?php echo $phonebook['id']; ?>" />
                 <input name='user_id' hidden type="hidden" value="<?php echo $_SESSION['user_id']; ?>" />
             </form>
-            <form action="phonebook/delete_phonebook.php" method="POST" class="w3-form"/>
-                <button value="<?php echo $phonebook['id']; ?> " class="w3-button w3-red w3-left-align">
+            <form action="phonebooks/delete_phonebook.php" method="POST" class="w3-form"/>
+                <button name="delete" type="submit" value="<?php echo $phonebook['id']; ?> " class="w3-button w3-red w3-left-align">
                     DELETE
                 </button>
                 <input name='phonebook_id' hidden type="hidden" value="<?php echo $phonebook['id']; ?>" />

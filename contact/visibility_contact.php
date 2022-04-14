@@ -20,12 +20,13 @@ if(isset($_POST['delete']) && isset($_SESSION['user_id'])) {
     if(empty($existingContactID[0]['id']) || is_null($existingContactID[0]['id'])) {
         $response->sendHeader('../phonebook.php', 'error', 'the contact does not exist');
     } else {
-        $contacts->deleteContact($user_id, $contact_id);
+        $visible = "0";
+        $contacts->updateVisibility($visible, $user_id, $contact_id);
         $existingContactID = $checkContacts->showContact($contact_id, $user_id);
-        if(!empty($existingContactID[0]['id']) || !is_null($existingContactID[0]['id'])) {
-            $response->sendHeader('../phonebook.php', 'error', 'the contact wasn\'t deleted due to unknown errors');
-        } elseif(empty($existingContactID[0]['id']) || is_null($existingContactID[0]['id'])) {
-            $response->sendHeader('../phonebook.php', 'success', 'contact was successfully deleted');
+        if($existingContactID[0]['visible'] != $visible) {
+            $response->sendHeader('../phonebook.php', 'error', 'the contact visibility wasn\'t changed due to unknown errors');
+        } elseif($existingContactID[0]['visible'] == $visible) {
+            $response->sendHeader('../phonebook.php', 'success', 'visibiliy was successfully changed');
         }
     }
 

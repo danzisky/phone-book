@@ -32,4 +32,20 @@ class Phonebooks extends Dbh {
 		$stmt->execute([$name, $user_id, $description]);
 		
 	}
+    
+    protected function delPhonebook($user_id, $phonebook_id) {
+		$sql = "DELETE FROM phonebooks WHERE user_id = ? AND id = ?";
+		$stmt = $this->connect()->prepare($sql);
+		$stmt->execute([$user_id, $phonebook_id]);		
+	}
+    protected function updtPublicity($public, $user_id, $phonebook_id) {
+		$sql = "UPDATE phonebooks SET public = ? WHERE user_id = ? AND id = ?";
+		$stmt = $this->connect()->prepare($sql);
+		$stmt->execute([$public, $user_id, $phonebook_id]);		
+	}
+    protected function updtPhonebook($name, $description, $user_id, $phonebook_id) {
+		$sql = "UPDATE phonebooks SET phonebook_name = ?, phonebook_description = ? WHERE user_id = ? AND id = ?";
+		$stmt = $this->connect()->prepare($sql);
+		$stmt->execute([$name, $description, $user_id, $phonebook_id]);		
+	}
 }
