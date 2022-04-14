@@ -1,13 +1,13 @@
 <?php
 
-class ContactsViews extends Contacts {
+class SharedContactsViews extends SharedContacts {
 	
 	public function showContacts($user_id) {
 		$results = $this->getContacts($user_id);
 	return $results;
 	}
-    public function showContactsPhonebook($user_id, $phonebook_id) {
-		$results = $this->getContactsPhonebook($user_id, $phonebook_id);
+    public function showContactsPhonebook($phonebook_id) {
+		$results = $this->getContactsPhonebook($phonebook_id);
 	return $results;
 	}
     public function showContactName($first_name, $last_name, $user_id) {

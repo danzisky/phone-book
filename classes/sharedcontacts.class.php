@@ -1,18 +1,18 @@
 <?php
 
-class Contacts extends Dbh {
+class SharedContacts extends Dbh {
 	protected function getContacts($user_id) {
-		$sql = "SELECT * FROM contacts WHERE user_id = ?";
+		$sql = "SELECT * FROM contacts WHERE user_id = ? AND visible = 1";
 		$stmt = $this->connect()->prepare($sql);
 		$stmt->execute([$user_id]);
 		
 		$results = $stmt->fetchAll();
 		return $results;	
 	}
-    protected function getContactsPhonebook($user_id, $phonebook_id) {
-		$sql = "SELECT * FROM contacts WHERE user_id = ? AND phonebook_id = ?";
+    protected function getContactsPhonebook($phonebook_id) {
+		$sql = "SELECT * FROM contacts WHERE phonebook_id = ? AND visible = 1";
 		$stmt = $this->connect()->prepare($sql);
-		$stmt->execute([$user_id, $phonebook_id]);
+		$stmt->execute([$phonebook_id]);
 		
 		$results = $stmt->fetchAll();
 		return $results;	
