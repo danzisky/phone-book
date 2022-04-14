@@ -16,9 +16,13 @@ if(isset($_SESSION['user_id'])) {
 
     foreach ($phonebooks as $phonebook) {
         ?>
-
-        <div><h3><?php echo $phonebook['phonebook_name']; ?></h3></div>
-        <div><h5><?php echo $phonebook['phonebook_description']; ?></h5></div>
+        <form action="phonebook.php" method="GET"/>
+            <button value="<?php echo $phonebook['id']; ?>">
+                <div><h3><?php echo $phonebook['phonebook_name']; ?></h3></div>
+                <div><h5><?php echo $phonebook['phonebook_description']; ?></h5></div>
+            </button>
+            <input name='user_id' hidden type="hidden" value="<?php echo $_SESSION['user_id'] ?>" />
+        </form>
         <hr>
 
         <?php
