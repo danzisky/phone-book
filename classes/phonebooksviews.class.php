@@ -6,7 +6,7 @@ class PhonebooksViews extends Phonebooks {
 		$results = $this->getPhonebooks($user_id);
 	return $results;
 	}
-    public function showUserUsername($name, $user_id) {
+    public function showPhonebookName($name, $user_id) {
 		$results = $this->getPhonebookName($name, $user_id);
 	return $results;
 	}

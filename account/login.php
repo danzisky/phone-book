@@ -30,7 +30,7 @@ if(isset($_POST['submit'])) {
         if(empty($existingUserEmail[0]['id']) || is_null($existingUserEmail[0]['id'])) {
             $response->sendHeader('../index.php', 'error', 'no account was found');
         } elseif(!empty($existingUserEmail[0]['id']) || !is_null($existingUserEmail[0]['id'])) {
-            $_SESSION['user_id'] = $existingUserEmail[0]['user_id'];
+            $_SESSION['user_id'] = $existingUserEmail[0]['id'];
             $_SESSION['first_name'] = $existingUserEmail[0]['first_name'];
             $_SESSION['last_name'] = $existingUserEmail[0]['last_name'];
             $_SESSION['user_name'] = $existingUserEmail[0]['username'];
