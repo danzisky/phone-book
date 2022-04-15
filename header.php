@@ -17,13 +17,13 @@
         <div class="w3-text-white w3-small m3-margin-top">
             click to close
         </div>
-    </div>
-    <form action="account/logout.php" method="POST">
-        <button name="submit" type="submit" class="w3-red w3-button w3-right w3-text-white w3-margin">
-            LOG OUT
-        </button>
-    </form>
+    </div>    
 <?php
     }
 ?>
+<form action="account/logout.php" method="POST">
+    <button name="submit" type="submit" class="w3-red w3-button w3-right w3-text-white w3-margin">
+        LOG OUT
+    </button>
+</form>
    

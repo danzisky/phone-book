@@ -16,7 +16,7 @@ if(isset($_POST['submit']) && isset($_SESSION['user_id'])) {
 
     if (empty($name) || empty($user_id)) {
         $response->sendHeader('../edit_phonebook.php', 'error', 'please fill in the phonebook name');        
-    } elseif (!preg_match('/^[\w\d]+$/i', $name)) {
+    } elseif (!preg_match('/^[\w\s\d]*$/i', $name)) {
         $response->sendHeader('../edit_phonebook.php', 'error', 'please check for invalid characters in the name field'); 
     } elseif ($user_id != $_SESSION['user_id']) {
         $response->sendHeader('../account.php', 'error', 'invalid user');

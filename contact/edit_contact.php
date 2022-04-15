@@ -30,8 +30,8 @@ if(isset($_POST['submit']) && isset($_SESSION['user_id'])) {
     } if (empty($email) && empty($phone)) {
         $response->sendHeader('../edit_contact.php', 'error', 'please add a contact means, at least an email or a phone number');        
     }
-     elseif (!preg_match('/^[\w\d]+$/i', $first_name) || !preg_match('/^[\w\d]+$/i', $last_name) || !preg_match('/^[\w\d]+$/i', $country) || !preg_match('/^[\w\d]+$/i', $city) || !preg_match('/^[\w\d]+$/i', $state) || !preg_match('/^[\w\d]+$/i', $contact_group)) {
-        $response->sendHeader('../edit_contact.php', 'error', 'please check if you\'ve inputed non alpha numeric characters'); 
+     elseif (!preg_match('/^[\w\s\d]*$/i', $first_name) || !preg_match('/^[\w\s\d]*$/i', $last_name)) {
+        $response->sendHeader('../edit_contact.php', 'error', 'please check if you\'ve inputed non alphabetic characters'); 
     } elseif ($user_id != $_SESSION['user_id']) {
         $response->sendHeader('../edit_contact.php', 'error', 'invalid user');
     } elseif(empty($ownsContact[0]['id']) || is_null($ownsContact[0]['id'])) {
