@@ -9,20 +9,20 @@ if(isset($_POST['submit']) && isset($_SESSION['user_id'])) {
     $checkContacts = new ContactsViews();
     
 
-    $first_name = htmlspecialchars($_POST['first_name']);
-    $last_name = htmlspecialchars($_POST['last_name']);
-    $email = htmlspecialchars($_POST['email']);
-    $phone = htmlspecialchars($_POST['phone']);
-    $address1 = htmlspecialchars($_POST['address1']);
-    $address2 = htmlspecialchars($_POST['address2']);
-    $city = htmlspecialchars($_POST['city']);
-    $state = htmlspecialchars($_POST['state']);
-    $zipcode = htmlspecialchars($_POST['zipcode']);
-    $country = htmlspecialchars($_POST['country']);
-    $note = htmlspecialchars($_POST['notes']);
-    $contact_group = htmlspecialchars($_POST['contact_group']);
-    $contact_id = htmlspecialchars($_POST['contact_id']);
-    $user_id = htmlspecialchars($_POST['user_id']);
+    $first_name = htmlspecialchars(trim($_POST['first_name']));
+    $last_name = htmlspecialchars(trim($_POST['last_name']));
+    $email = htmlspecialchars(trim($_POST['email']));
+    $phone = htmlspecialchars(trim($_POST['phone']));
+    $address1 = htmlspecialchars(trim($_POST['address1']));
+    $address2 = htmlspecialchars(trim($_POST['address2']));
+    $city = htmlspecialchars(trim($_POST['city']));
+    $state = htmlspecialchars(trim($_POST['state']));
+    $zipcode = htmlspecialchars(trim($_POST['zipcode']));
+    $country = htmlspecialchars(trim($_POST['country']));
+    $note = htmlspecialchars(trim($_POST['notes']));
+    $contact_group = htmlspecialchars(trim($_POST['contact_group']));
+    $contact_id = htmlspecialchars(trim($_POST['contact_id']));
+    $user_id = htmlspecialchars(trim($_POST['user_id']));
 
     $ownsContact = $checkContacts->showContact($contact_id, $user_id);
     if (empty($first_name) && empty($last_name)) {
@@ -30,7 +30,7 @@ if(isset($_POST['submit']) && isset($_SESSION['user_id'])) {
     } if (empty($email) && empty($phone)) {
         $response->sendHeader('../edit_contact.php', 'error', 'please add a contact means, at least an email or a phone number');        
     }
-     elseif (!preg_match("/^[a-z A-Z 0-9]*$/", $first_name) || !preg_match("/^[a-z A-Z 0-9]*$/", $last_name) || !preg_match("/^[a-z A-Z 0-9]*$/", $country) || !preg_match("/^[a-z A-Z 0-9]*$/", $city) || !preg_match("/^[a-z A-Z 0-9]*$/", $state) || !preg_match("/^[a-z A-Z 0-9]*$/", $contact_group)) {
+     elseif (!preg_match('/^[\w\d]+$/i', $first_name) || !preg_match('/^[\w\d]+$/i', $last_name) || !preg_match('/^[\w\d]+$/i', $country) || !preg_match('/^[\w\d]+$/i', $city) || !preg_match('/^[\w\d]+$/i', $state) || !preg_match('/^[\w\d]+$/i', $contact_group)) {
         $response->sendHeader('../edit_contact.php', 'error', 'please check if you\'ve inputed non alpha numeric characters'); 
     } elseif ($user_id != $_SESSION['user_id']) {
         $response->sendHeader('../edit_contact.php', 'error', 'invalid user');
