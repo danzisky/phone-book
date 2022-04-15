@@ -31,11 +31,18 @@ if(isset($_SESSION['user_id'])) {
     $checkPhonebooks = new PhonebooksViews();
     $phonebook = $checkPhonebooks->showPhonebook($phonebook_id, $user_id);
 
+    $current_url = $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
+    $location = 'phonebooks/shared/?phonebook_id=';
+    $index = strpos($current_url, 'phonebook.php');
+    $base_url = substr($current_url, 0, $index);
+    $url = $base_url.$location.$phonebook_id;
+    $link = 'http://'.$url;
+
     echo '<div class="w3-xxlarge w3-panel">Logged in as '.$_SESSION['first_name'].'</div>';
     echo '<div class="w3-xxlarge w3-panel">'.$phonebook[0]['phonebook_name'].': Added Contacts</div>';
 
     echo '<div class="w3-large w3-panel"><div>To share this phonebook, use this link</div>';
-    echo '<div class="w3-text-blue w3-link w3-medium">http://localhost/Phone%20Book/phonebooks/shared/?phonebook_id=2</div></div>'; 
+    echo '<div class="w3-text-blue w3-link w3-medium">'.$link.'</div></div>'; 
 
     echo '<a href="account.php"><button  class="w3-medium w3-button w3-gray w3-margin-top w3-margin-bottom">BACK TO PHONEBOOKS</button></a>';
     echo '<br>';

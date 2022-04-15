@@ -16,6 +16,12 @@ if(isset($_SESSION['user_id'])) {
     $checkPhonebooks = new PhonebooksViews();
     $phonebooks = $checkPhonebooks->showPhonebooks($user_id);
 
+    $current_url = $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
+    $location = 'phonebooks/shared/?phonebook_id=';
+    $index = strpos($current_url, 'account.php');
+    $base_url = substr($current_url, 0, $index);
+    $url = 'http://'.$base_url.$location;
+
     echo '<div class="w3-xxlarge w3-panel">Welcome '.$_SESSION['first_name'].'</div>';
     echo '<div class="w3-xxlarge w3-panel">Created Phonebooks</div>';
 
@@ -36,7 +42,7 @@ if(isset($_SESSION['user_id'])) {
             <input name='phonebook_id' hidden type="hidden" value="<?php echo $phonebook['id']; ?>" />
             <input name='user_id' hidden type="hidden" value="<?php echo $_SESSION['user_id']; ?>" />
         </form>
-        <div class="w3-small w3-margin w3-text-hover-blue w3-text-blue"><a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/Phone%20Book/phonebooks/shared/?phonebook_id='.$phonebook['id']; ?>" target="_blank">VIEW PHONEBOOK THROUGH LINK</a></div>
+        <div class="w3-small w3-margin w3-text-hover-blue w3-text-blue"><a href="<?php echo $url.$phonebook['id']; ?>" target="_blank">VIEW PHONEBOOK THROUGH LINK</a></div>
         <div>
             <form action="edit_phonebook.php" method="POST" class="w3-form"/>
                 <button name="submit" type="submit" value="<?php echo $phonebook['id']; ?> " class="w3-button w3-grey w3-left-align">EDIT</button>

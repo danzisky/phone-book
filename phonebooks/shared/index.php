@@ -53,13 +53,14 @@ if(isset($_REQUEST['phonebook_id'])) {
 
     foreach ($contacts as $contact) {
         ?>
-        <form action="contact.php" method="GET"/>
+        <form action="../../contact.php" method="GET"/>
             <button value="<?php echo $contact['id']; ?>" class="w3-button w3-light-grey w3-left-align">
                 <div><h3><?php echo $contact['first_name']." ".$contact['last_name']; ?></h3></div>
                 <div><h5><?php echo isset($contact['email']) ? "E-mail: ".$contact['email'] : ""; ?></h5></div>
                 <div><h5><?php echo isset($contact['phone']) ? "Mobile Number: ".$contact['phone'] : ""; ?></h5></div>
             </button>
-            <input name='user_id' hidden type="hidden" value="<?php echo $_SESSION['user_id'] ?>" />
+            <input name='user_id' hidden type="hidden" value="<?php echo $contact['user_id'] ?>" />
+            <input name='contact_id' hidden type="hidden" value="<?php echo $contact['id'] ?>" />
         </form>
         <div>
             

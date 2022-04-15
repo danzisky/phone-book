@@ -35,7 +35,7 @@ if(isset($_POST['submit'])) {
             $_SESSION['last_name'] = $existingUserEmail[0]['last_name'];
             $_SESSION['user_name'] = $existingUserEmail[0]['username'];
             $_SESSION['email'] = $existingUserEmail[0]['email'];
-            $response->sendHeader('../account.php', 'success', 'logged in successfully');            
+            $response->sendHeader('../account.php', 'success', 'logged in successfully as'.$existingUserEmail[0]['first_name']);            
         }
     }
 

@@ -5,10 +5,14 @@ $response = new Respond();
 $ifisset = new IfSet();
 
 echo '<html><div class="w3-container">';
-if(isset($_SESSION['user_id'])) {
+if(!isset($_SESSION['user_id']) && isset($_REQUEST['user_id'])) {
+    $user_id = $_REQUEST['user_id'];
+} else if(isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+}
+if(isset($user_id)) {
     include 'header.php';
 
-    $user_id = $_SESSION['user_id'];
     if(isset($_REQUEST['contact_id'])) {
         $_SESSION['contact_id'] = $_REQUEST['contact_id'];
         $contact_id = $_REQUEST['contact_id'];
@@ -31,11 +35,18 @@ if(isset($_SESSION['user_id'])) {
     $checkPhonebooks = new PhonebooksViews();
     $phonebook = $checkPhonebooks->showPhonebook($phonebook_id, $user_id);
 
-    echo '<div class="w3-xxlarge w3-panel">Logged in as '.$_SESSION['first_name'].'</div>';
+    if (isset($_SESSION['user_id'])) {
+        echo '<div class="w3-xxlarge w3-panel">Logged in as '.$_SESSION['first_name'].'</div>';
+    } else {
+        echo '<div class="w3-xxlarge w3-panel">Viewing '.$_SESSION['first_name'].'\'s Phonebook</div>';
+    }
     echo '<div class="w3-xxlarge w3-panel">'.$phonebook[0]['phonebook_name'].'</div>';
 
     echo '<div class="w3-xxlarge w3-panel">Contact Details for '.$contact[0]['first_name'].' '.$contact[0]['last_name'].'</div>';
-    echo '<a href="phonebook.php"><button  class="w3-medium w3-button w3-gray w3-margin-top w3-margin-bottom">BACK TO PHONEBOOK</button></a>';
+
+    if (isset($_SESSION['user_id'])) {
+       echo '<a href="phonebook.php"><button  class="w3-medium w3-button w3-gray w3-margin-top w3-margin-bottom">BACK TO PHONEBOOK</button></a>';
+    }    
     echo '<br>';
     
     if($contact[0]['visible'] == 1 || $contact[0]['visible'] == "1") {
